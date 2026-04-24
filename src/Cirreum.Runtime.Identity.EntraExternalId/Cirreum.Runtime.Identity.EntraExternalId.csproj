@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<RootNamespace>Cirreum.Runtime</RootNamespace>
+		<Description>Runtime Extensions package for Cirreum Identity EntraExternalId — app-facing AddEntraExternalIdIdentity() and MapEntraExternalIdIdentity() extensions that wire the Entra External ID identity provider from configuration.</Description>
+		<PackageTags>cirreum;runtime;identity;entra;entraexternalid;ciam;providers</PackageTags>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Cirreum.Runtime.IdentityProvider" Version="1.0.1" />
+		<PackageReference Include="Cirreum.Identity.EntraExternalId" Version="2.0.1" />
+	</ItemGroup>
+
+</Project>
