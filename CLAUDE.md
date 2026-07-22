@@ -58,7 +58,9 @@ src/Cirreum.Runtime.Identity.EntraExternalId/
 
 ## Umbrella vs per-protocol
 
-The umbrella `Cirreum.Runtime.Identity` exposes `AddIdentity()` / `MapIdentity()` which compose this package and `Cirreum.Runtime.Identity.Oidc`. Apps that need only Entra External ID install this package directly; apps that need multi-protocol install the umbrella.
+The umbrella `Cirreum.Runtime.Identity` exposes `AddIdentity()` / `MapIdentity()` covering both protocols. It does NOT depend on this package — it registers the Entra External ID provider itself, directly against `Cirreum.Runtime.IdentityProvider` and `Cirreum.Identity.EntraExternalId` (framework policy: no same-layer dependencies; they ship one release behind under batch release + lowest-wins). Apps that need only Entra External ID install this package directly; apps that need multi-protocol install the umbrella.
+
+Installing both per-protocol + umbrella is not supported — each registers the provider under its own dedup marker, so both would run their registration independently.
 
 ## Development Notes
 
