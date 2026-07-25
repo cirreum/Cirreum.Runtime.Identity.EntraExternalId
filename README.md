@@ -44,6 +44,26 @@ app.MapEntraExternalIdIdentity();
 app.Run();
 ```
 
+### The provisioned-identity type
+
+Your user type implements `IProvisionedIdentity`, and **its `Claims` projection is what reaches the token** — the framework mints exactly what this returns. Roles are one claim among them, not a privileged concept, so a property named `Roles` on your own type mints nothing until you project it:
+
+```csharp
+using Cirreum.Identity.Provisioning;
+
+public sealed class EmployeeUser : IProvisionedIdentity {
+
+    public required string ExternalUserId { get; init; }
+    public required IReadOnlyList<string> Roles { get; init; }
+
+    public IReadOnlyList<IdentityClaim> Claims => [
+        IdentityClaim.Roles(Roles)
+    ];
+}
+```
+
+Whether a user *must* carry roles is expressed by your own type — a `required` constructor parameter makes a roleless user a compile error — not by a framework guard. Add further claims (`IdentityClaim.Name(...)`, `IdentityClaim.Of("tenant", ...)`) as your app needs; each lands in the token under a collision-safe `custom*` name, and each must be declared once on the Entra side (see `Cirreum.Identity.EntraExternalId`).
+
 ### App-provided provisioner class
 
 Derive from the base that matches the instance's onboarding model:

@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- The README's provisioner walkthrough never showed the `IProvisionedIdentity.Claims`
+  projection that mints what reaches the token. Since `Cirreum.IdentityProvider 2.0.0` stopped
+  treating roles as a privileged concept, a `Roles` property on the app's own user type mints
+  nothing until it is projected through `Claims` — the README now leads with that type.
+  Documentation only; no API or behavior change.
+
 ### Updated
 
 - Updated NuGet packages.
